@@ -1,4 +1,6 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Footer from './Pages/Shared/Footer/Footer';
+import Header from './Pages/Shared/Header/Header';
 import HomeScreen from "./Screens/HomeScreen";
 import ProductScreen from './Screens/ProductScreen';
 
@@ -6,9 +8,9 @@ import ProductScreen from './Screens/ProductScreen';
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className='flex flex-col h-screen'>
         <header>
-          <Link to="/">amazona</Link>
+          <Header></Header>
         </header>
         <main>
           <Routes>
@@ -16,6 +18,9 @@ function App() {
             <Route path="/" element={<HomeScreen></HomeScreen>}></Route>
           </Routes>
         </main>
+        <footer>
+          <Footer></Footer>
+        </footer>
       </div>
     </BrowserRouter>
   );
