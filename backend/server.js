@@ -11,11 +11,22 @@ app.get('/api/products', (req, res) => {
     res.send(data)
 });
 
-app.get('/api/products/slug/:slug', (req, res)=>{
+app.get('/api/products/slug/:slug', (req, res) => {
     const slug = req.params.slug;
     const product = data.products.find(p => p.slug === slug);
     if (product) {
         res.send(product)
+    }
+    else {
+        res.status(404).send('Product not found')
+    }
+});
+
+app.get('/api/products/:id', (req, res)=>{
+    const id = req.params.id;
+    const product = data.products.find(p => p._id === id);
+    if (product) {
+        res.send(product);
     }
     else {
         res.status(404).send('Product not found')

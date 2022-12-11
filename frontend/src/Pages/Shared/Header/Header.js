@@ -14,7 +14,7 @@ const Header = () => {
                 <div className='absolute top-0 -right-2'>
                     {
                         cart.cartItems.length > 0 &&
-                        <span className="badge badge-sm bg-red-600 text-white">{cart.cartItems.length}</span>
+                        <span className="badge badge-sm bg-red-600 text-white">{cart.cartItems.reduce((a, c) => a + c.quantity, 0)}</span>
                     }
                 </div>
             </Link>
