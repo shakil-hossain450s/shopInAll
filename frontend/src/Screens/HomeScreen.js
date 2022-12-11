@@ -1,8 +1,7 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { FaCartPlus } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
+import Product from '../Pages/Product/Product';
 
 
 const reducer = (state, action) => {
@@ -40,32 +39,17 @@ const HomeScreen = () => {
     }, []);
     return (
         <div>
-            <h1 className="text-3xl">Featured Products: {products.length}</h1>
-            <div className='products'>
+            <h1 className="text-3xl pl-2">Featured Products: {products.length}</h1>
+            <div className='flex flex-wrap justify-between my-3'>
                 {
                     loading ? <div>Loading...</div>
                         :
                         error ? <div>{error}</div>
                             :
-                            products.map((product, i) =>
-                                <div className='product bg-slate-100 p-3 shadow-xl border' key={i}>
-                                    <Link to={`/product/${product.slug}`}>
-                                        <img className="mb-2 border" src={product.image} alt={product.name} />
-                                    </Link>
-                                    <div className="ml-1 mt-3">
-                                        <p className="text-base font-normal text-gray-500">{product.brand}</p>
-                                        <Link to={`/product/${product.slug}`}>
-                                            <p className="text-lg font-semibold text-gray-800">{product.name}</p>
-                                        </Link>
-                                        <div className="flex justify-between items-center">
-                                            <p className="text-gray-600 font-bold">${product.price}</p>
-                                            <button className="btn btn-ghost rounded-full btn-outline text-xl">
-                                                <FaCartPlus className="w-4 h-4"></FaCartPlus>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
+                            products.map((product, i) => <Product
+                                key={i}
+                                product={product}
+                            ></Product>)
                 }
             </div>
         </div>

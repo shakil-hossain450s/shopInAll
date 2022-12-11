@@ -6,7 +6,7 @@ const data = {
             category: 'Shirts',
             image: '/images/p1.jpg', // 679px × 829px
             price: 120,
-            countInStock: 10,
+            countInStock: 0, 
             brand: 'Nike',
             rating: 4.5,
             numReviews: 10,
@@ -47,6 +47,18 @@ const data = {
             rating: 4.5,
             numReviews: 10,
             description: 'high quality product',
+        },
+        {
+            name: 'Adidas Slim Shirt',
+            slug: 'adidas-slim-shirt',
+            category: 'Shirts',
+            image: '/images/p1.jpg',
+            price: 130,
+            countInStock: 0,
+            brand: 'Adidas',
+            rating: 4,
+            numReviews: 12,
+            description: 'high quality Shirts',
         },
     ],
 };
