@@ -4,14 +4,17 @@ import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import StoreProvider from './StoreProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   // </React.StrictMode>
-  <HelmetProvider>
-    <App />
-  </HelmetProvider>
+  <StoreProvider>
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  </StoreProvider>
 
 );
 

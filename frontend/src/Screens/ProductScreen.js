@@ -1,8 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
+import LoadingBox from '../components/LoadingBox/LoadingBox';
+import MessageBox from '../components/MessageBox/MessageBox';
 import Rating from '../components/Rating/Rating';
+import getError from '../components/utils/utils';
+import { StoreContext } from '../StoreProvider';
 
 
 const reducer = (state, action) => {
@@ -36,19 +40,24 @@ const ProductScreen = () => {
                 dispatch({ type: 'FETCH_SUCCESS', payload: data });
             }
             catch (err) {
-                dispatch({ type: 'FETCH_FAILED', payload: err.message });
+                dispatch({ type: 'FETCH_FAILED', payload: getError(err) });
             }
         }
         fetchData();
     }, [slug]);
 
 
+    const { state, dispatch: cxtDispatch } = useContext(StoreContext);
+    const handleAddToCart = () => {
+        cxtDispatch({type: 'CART_ADD_ITEM', payload: {...product, quantity: 1}});
+    }
+
     return (
         <div>
             {
-                loading ? <div>Loading...</div>
+                loading ? <LoadingBox />
                     :
-                    error ? <div>{error}</div>
+                    error ? <MessageBox variant='danger'>{error}</MessageBox>
                         :
                         <div className='lg:p-3'>
                             <Helmet>
@@ -104,9 +113,16 @@ const ProductScreen = () => {
                                                         </div>
                                                     </div>
                                                     <div className='divider my-1'></div>
-                                                    <div>
-                                                        <button className='btn w-full mt-2'>Add To Cart</button>
-                                                    </div>
+                                                    {
+                                                        product.countInStock > 0 ?
+                                                            <div>
+                                                                <button onClick={handleAddToCart} className='btn w-full mt-2'>Add To Cart</button>
+                                                            </div>
+                                                            :
+                                                            <div>
+                                                                <button disabled className='btn w-full mt-2'>Add To Cart</button>
+                                                            </div>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

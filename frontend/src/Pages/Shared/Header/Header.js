@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { StoreContext } from '../../../StoreProvider';
 
 const Header = () => {
+    const { state } = useContext(StoreContext);
+    const { cart } = state;
     const navItems = <>
         <li className='font-medium'><Link to='/'>Home</Link></li>
-        <div className='divider -my-2'></div>
         <li className='font-medium'><Link>Contact</Link></li>
+        <li className='font-medium relative'>
+            <Link>
+                Cart
+                <div className='absolute top-0 -right-2'>
+                    {
+                        cart.cartItems.length > 0 &&
+                        <span className="badge badge-sm bg-red-600 text-white">{cart.cartItems.length}</span>
+                    }
+                </div>
+            </Link>
+        </li>
     </>
     return (
         <div className="navbar bg-gray-800 text-white justify-between">

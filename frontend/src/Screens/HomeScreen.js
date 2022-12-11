@@ -2,6 +2,8 @@ import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
 import Product from '../Pages/Product/Product';
+import LoadingBox from '../components/LoadingBox/LoadingBox';
+import MessageBox from '../components/MessageBox/MessageBox';
 
 
 const reducer = (state, action) => {
@@ -42,9 +44,9 @@ const HomeScreen = () => {
             <h1 className="text-3xl pl-2">Featured Products: {products.length}</h1>
             <div className='flex flex-wrap justify-between my-3'>
                 {
-                    loading ? <div>Loading...</div>
+                    loading ? <LoadingBox />
                         :
-                        error ? <div>{error}</div>
+                        error ? <MessageBox variant='danger'>{error}</MessageBox>
                             :
                             products.map((product, i) => <Product
                                 key={i}
